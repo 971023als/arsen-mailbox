@@ -1,0 +1,20 @@
+{
+  "name": "arsen-mailbox-worker",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "test": "vitest run",
+    "typecheck": "tsc --noEmit",
+    "dev": "wrangler dev --config src/wrangler.local.jsonc --local --ip 127.0.0.1 --port 8830"
+  },
+  "devDependencies": {
+    "@cloudflare/vitest-pool-workers": "0.23.0",
+    "@cloudflare/workers-types": "5.20261104.1",
+    "@vitest/runner": "4.1.12",
+    "@vitest/snapshot": "4.1.12",
+    "typescript": "6.0.3",
+    "vitest": "4.1.12",
+    "wrangler": "4.124.0"
+  }
+}

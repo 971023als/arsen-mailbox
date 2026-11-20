@@ -1,0 +1,24 @@
+// Copy to wrangler.self-host.jsonc. Use only resources from your own Cloudflare account.
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "my-mailbox",
+  "main": "src/index.ts",
+  "compatibility_date": "2026-08-01",
+  "workers_dev": true,
+  "preview_urls": false,
+  "assets": { "directory": "./public", "binding": "ASSETS", "run_worker_first": true, "html_handling": "none" },
+  "observability": { "enabled": false, "logs": { "enabled": false, "invocation_logs": false } },
+  "logpush": false,
+  "triggers": { "crons": ["17 * * * *"] },
+  "d1_databases": [{
+    "binding": "DB",
+    "database_name": "my-mailbox",
+    "database_id": "REPLACE_WITH_YOUR_D1_UUID",
+    "migrations_dir": "migrations"
+  }],
+  "vars": {
+    "KEY_EPOCH": "0",
+    "SIGNUP_OPEN": "invite",
+    "TURNSTILE_SITEKEY": "REPLACE_WITH_YOUR_TURNSTILE_SITEKEY"
+  }
+}

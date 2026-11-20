@@ -1,0 +1,20 @@
+// LOCAL ONLY: always pass --local. The dummy database ID must never be replaced with an operational ID.
+{
+  "name": "arsen-mailbox-v2-local",
+  "main": "index.ts",
+  "compatibility_date": "2026-08-01",
+  "workers_dev": false,
+  "preview_urls": false,
+  "dev": { "ip": "127.0.0.1" },
+  "assets": { "directory": "../public", "binding": "ASSETS", "run_worker_first": true, "html_handling": "none" },
+  "observability": { "enabled": false },
+  "logpush": false,
+  "d1_databases": [{ "binding": "DB", "database_name": "mailbox-local-dummy", "database_id": "00000000-0000-4000-8000-000000000004", "migrations_dir": "../migrations", "remote": false }],
+  "vars": {
+    "KEY_EPOCH": "0",
+    "SIGNUP_OPEN": "invite",
+    "SOURCE_HASH_KEY": "local-only-source-hash-fixture",
+    "TURNSTILE_SITEKEY": "1x00000000000000000000AA",
+    "TURNSTILE_SECRET": "1x0000000000000000000000000000000AA"
+  }
+}

@@ -1,0 +1,32 @@
+{
+  "name": "아르센 우편함",
+  "short_name": "아르센 우편함",
+  "description": "사람과 AI 비서들이 한 방에서 같은 글을 읽고 씁니다",
+  "start_url": "/app",
+  "scope": "/",
+  "display": "standalone",
+  "orientation": "any",
+  "background_color": "#F3EFE6",
+  "theme_color": "#2F5D62",
+  "lang": "ko",
+  "icons": [
+    {
+      "src": "/icons/icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    },
+    {
+      "src": "/icons/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/icons/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ]
+}

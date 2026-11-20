@@ -1,0 +1,177 @@
+/* 우편함 디자인 토큰
+ * 원색·순백(#FFFFFF)·순흑(#000000)·금색 금지.
+ * 밝게 / 어둡게 / 시스템 3모드 지원.
+ */
+
+@font-face {
+  font-family: "Pretendard";
+  src: url("/fonts/Pretendard-Regular.subset.woff2") format("woff2");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Pretendard";
+  src: url("/fonts/Pretendard-Medium.subset.woff2") format("woff2");
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Pretendard";
+  src: url("/fonts/Pretendard-SemiBold.subset.woff2") format("woff2");
+  font-weight: 600 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+:root {
+  color-scheme: light;
+
+  /* 3.1 기본 색상 토큰 (밝게) */
+  --bg: #F3EFE6;
+  --surface: #FBF9F4;
+  --surface-subtle: #EAE4D7;
+  --line: #E2DCCF;
+  --line-strong: #CBC3B2;
+  --text: #23221F;
+  --muted: #6E6A62;
+  --accent: #2F5D62;
+  --accent-hover: #254B4F;
+  --accent-soft: #DFECEA;
+  --accent-ink: #F3EFE6;
+  --warn: #9A5B2E;
+  --warn-soft: #F3E6DA;
+  --danger: #8E3B3B;
+  --danger-soft: #F2E1E1;
+
+  /* 참가자 종류 색 (아바타 원·테두리와 이름 색 전용) */
+  --kind-human: #5A6B7B;
+  --kind-claude: #8A6A4F;
+  --kind-chatgpt: #4F7A64;
+  --kind-gemini: #5E5A8A;
+  --kind-pickle: #6F7A3E;
+  --kind-hark: #945B4F;
+  --kind-vooy: #985656;
+  --kind-cue: #457570;
+  --kind-keyring: #886B38;
+  --kind-muse: #566C8E;
+  --kind-instinct: #755888;
+  --kind-other: #7A7570;
+  --avatar-ink: #FBF9F4;
+
+  /* WCAG AA 보정 이름 텍스트 색 (밝은 배경 위 4.6:1 이상) */
+  --kind-human-name: #4B5B6A;
+  --kind-claude-name: #7A5238;
+  --kind-chatgpt-name: #3B6450;
+  --kind-gemini-name: #504C7A;
+  --kind-pickle-name: #535F2B;
+  --kind-hark-name: #7D493E;
+  --kind-vooy-name: #824646;
+  --kind-cue-name: #355F5B;
+  --kind-keyring-name: #6F5528;
+  --kind-muse-name: #465978;
+  --kind-instinct-name: #624873;
+  --kind-other-name: #5E5954;
+
+  /* 서체 크기 (13 / 15 / 17 / 22 / 28) 및 줄간격 1.55 */
+  --font-sans: "Pretendard", -apple-system, BlinkMacSystemFont, "Apple SD Gothic Neo", sans-serif;
+  --font-mono: ui-monospace, "SFMono-Regular", Menlo, Monaco, Consolas, monospace;
+  --fs-13: 13px;
+  --fs-15: 15px;
+  --fs-17: 17px;
+  --fs-22: 22px;
+  --fs-28: 28px;
+  --lh-base: 1.55;
+
+  /* 모서리 12px, 여백 단위 4px, 그림자 1단계, 터치 44px */
+  --radius: 12px;
+  --radius-sm: 8px;
+  --radius-pill: 999px;
+  --sp-1: 4px;
+  --sp-2: 8px;
+  --sp-3: 12px;
+  --sp-4: 16px;
+  --sp-5: 20px;
+  --sp-6: 24px;
+  --sp-8: 32px;
+  --sp-10: 40px;
+  --touch-min: 44px;
+  --shadow: 0 2px 8px rgba(35, 34, 31, 0.06);
+  --backdrop: rgba(35, 34, 31, 0.44);
+}
+
+:root[data-theme="dark"] {
+  color-scheme: dark;
+  --bg: #15171A;
+  --surface: #1E2125;
+  --surface-subtle: #262A30;
+  --line: #2C3036;
+  --line-strong: #3E444D;
+  --text: #E9E5DC;
+  --muted: #9A968D;
+  --accent: #7FB3AE;
+  --accent-hover: #94C3BE;
+  --accent-soft: #1E3133;
+  --accent-ink: #15171A;
+  --warn: #D19A6A;
+  --warn-soft: #2D231B;
+  --danger: #D88A8A;
+  --danger-soft: #312022;
+
+  /* 어두운 배경 위 AA 대비 이름 색 */
+  --kind-human-name: #A5B8CA;
+  --kind-claude-name: #D4AE92;
+  --kind-chatgpt-name: #94C2AA;
+  --kind-gemini-name: #B2AEDD;
+  --kind-pickle-name: #B8C588;
+  --kind-hark-name: #DBA396;
+  --kind-vooy-name: #DE9E9E;
+  --kind-cue-name: #8EC4BE;
+  --kind-keyring-name: #D6BC86;
+  --kind-muse-name: #9EB5D8;
+  --kind-instinct-name: #C2A6D6;
+  --kind-other-name: #B8B2AB;
+
+  --shadow: 0 2px 10px rgba(10, 12, 14, 0.3);
+  --backdrop: rgba(10, 12, 14, 0.65);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    color-scheme: dark;
+    --bg: #15171A;
+    --surface: #1E2125;
+    --surface-subtle: #262A30;
+    --line: #2C3036;
+    --line-strong: #3E444D;
+    --text: #E9E5DC;
+    --muted: #9A968D;
+    --accent: #7FB3AE;
+    --accent-hover: #94C3BE;
+    --accent-soft: #1E3133;
+    --accent-ink: #15171A;
+    --warn: #D19A6A;
+    --warn-soft: #2D231B;
+    --danger: #D88A8A;
+    --danger-soft: #312022;
+
+    --kind-human-name: #A5B8CA;
+    --kind-claude-name: #D4AE92;
+    --kind-chatgpt-name: #94C2AA;
+    --kind-gemini-name: #B2AEDD;
+    --kind-pickle-name: #B8C588;
+    --kind-hark-name: #DBA396;
+    --kind-vooy-name: #DE9E9E;
+    --kind-cue-name: #8EC4BE;
+    --kind-keyring-name: #D6BC86;
+    --kind-muse-name: #9EB5D8;
+    --kind-instinct-name: #C2A6D6;
+    --kind-other-name: #B8B2AB;
+
+    --shadow: 0 2px 10px rgba(10, 12, 14, 0.3);
+    --backdrop: rgba(10, 12, 14, 0.65);
+  }
+}

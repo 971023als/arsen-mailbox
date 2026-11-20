@@ -1,0 +1,1395 @@
+/* ARSEN 우편함 v2.2 — 대화창 5스킨 · 글자크기 · 줄간격 · 컴팩트 · 대화 설정 시트 스타일
+ * - 엄격 CSP(default-src 'self') 완전 준수: 인라인 style 속성 0건, 오직 data-* 속성과 CSS 변수로만 제어
+ * - 5스킨: arsen(아르센 서재) / sunlit(햇살 말풍선) / sky(하늘 말풍선) / workspace(작업실) / forest(포레스트 민트)
+ * - 밝기(system / light / dark)와 스킨 완전 독립 결합 (:root[data-theme] 및 prefers-color-scheme 동시 대응)
+ */
+
+/* =========================================================================
+   1. 기본 대화 표시 토큰 (아르센 서재 · 15px · 기본 줄간격 1.58 · 기본 여백)
+   ========================================================================= */
+:root {
+  --chat-font-size: 15px;
+  --chat-code-font-size: 13px;
+  --chat-line-height: 1.58;
+
+  --chat-canvas-bg: var(--bg);
+  --chat-canvas-ink: var(--text);
+  --chat-canvas-muted: var(--muted);
+  --chat-canvas-line: var(--line);
+  --chat-topbar-bg: var(--surface);
+  --chat-topbar-line: var(--line);
+  --chat-strip-bg: var(--surface-subtle);
+  --chat-strip-ink: var(--muted);
+  --chat-composer-bg: var(--surface);
+  --chat-composer-input-bg: var(--bg);
+  --chat-composer-line: var(--line-strong);
+
+  --chat-bubble-other-bg: #FBF9F4;
+  --chat-bubble-other-border: #DDD5C5;
+  --chat-bubble-other-ink: #23221F;
+  --chat-bubble-other-muted: #656057;
+  --chat-bubble-other-divider: #E2DCCF;
+  --chat-bubble-other-shadow: 0 2px 6px rgba(35, 34, 31, 0.05);
+
+  --chat-bubble-mine-bg: #DFECEA;
+  --chat-bubble-mine-border: #2F5D62;
+  --chat-bubble-mine-ink: #1A2F32;
+  --chat-bubble-mine-muted: #2B4E52;
+  --chat-bubble-mine-divider: #B9D3CF;
+  --chat-bubble-mine-shadow: 0 2px 6px rgba(35, 34, 31, 0.05);
+
+  --chat-code-other-bg: #EAE4D7;
+  --chat-code-other-border: #D7CEBE;
+  --chat-code-other-ink: #23221F;
+
+  --chat-code-mine-bg: #CEE1DE;
+  --chat-code-mine-border: #9AC0BB;
+  --chat-code-mine-ink: #16282A;
+
+  --chat-chip-mine-bg: #FBF9F4;
+  --chat-chip-mine-border: #2F5D62;
+  --chat-chip-mine-ink: #1E3E42;
+
+  --chat-workspace-bar-other: #5A6B7B;
+  --chat-workspace-bar-mine: #2F5D62;
+  --chat-workspace-me-badge-bg: #2F5D62;
+  --chat-workspace-me-badge-ink: #FBF9F4;
+}
+
+:root[data-theme="dark"] {
+  --chat-bubble-other-bg: #1E2125;
+  --chat-bubble-other-border: #2F343C;
+  --chat-bubble-other-ink: #E9E5DC;
+  --chat-bubble-other-muted: #A5A096;
+  --chat-bubble-other-divider: #2F343C;
+  --chat-bubble-other-shadow: 0 2px 8px rgba(10, 12, 14, 0.28);
+
+  --chat-bubble-mine-bg: #1E3133;
+  --chat-bubble-mine-border: #7FB3AE;
+  --chat-bubble-mine-ink: #EAF4F2;
+  --chat-bubble-mine-muted: #B6D8D4;
+  --chat-bubble-mine-divider: #2E4B4E;
+  --chat-bubble-mine-shadow: 0 2px 8px rgba(10, 12, 14, 0.28);
+
+  --chat-code-other-bg: #262A30;
+  --chat-code-other-border: #363C45;
+  --chat-code-other-ink: #E9E5DC;
+
+  --chat-code-mine-bg: #162426;
+  --chat-code-mine-border: #385B5E;
+  --chat-code-mine-ink: #EAF4F2;
+
+  --chat-chip-mine-bg: #162426;
+  --chat-chip-mine-border: #7FB3AE;
+  --chat-chip-mine-ink: #D5ECE9;
+
+  --chat-workspace-bar-other: #8A99A8;
+  --chat-workspace-bar-mine: #7FB3AE;
+  --chat-workspace-me-badge-bg: #7FB3AE;
+  --chat-workspace-me-badge-ink: #15171A;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --chat-bubble-other-bg: #1E2125;
+    --chat-bubble-other-border: #2F343C;
+    --chat-bubble-other-ink: #E9E5DC;
+    --chat-bubble-other-muted: #A5A096;
+    --chat-bubble-other-divider: #2F343C;
+    --chat-bubble-other-shadow: 0 2px 8px rgba(10, 12, 14, 0.28);
+
+    --chat-bubble-mine-bg: #1E3133;
+    --chat-bubble-mine-border: #7FB3AE;
+    --chat-bubble-mine-ink: #EAF4F2;
+    --chat-bubble-mine-muted: #B6D8D4;
+    --chat-bubble-mine-divider: #2E4B4E;
+    --chat-bubble-mine-shadow: 0 2px 8px rgba(10, 12, 14, 0.28);
+
+    --chat-code-other-bg: #262A30;
+    --chat-code-other-border: #363C45;
+    --chat-code-other-ink: #E9E5DC;
+
+    --chat-code-mine-bg: #162426;
+    --chat-code-mine-border: #385B5E;
+    --chat-code-mine-ink: #EAF4F2;
+
+    --chat-chip-mine-bg: #162426;
+    --chat-chip-mine-border: #7FB3AE;
+    --chat-chip-mine-ink: #D5ECE9;
+
+    --chat-workspace-bar-other: #8A99A8;
+    --chat-workspace-bar-mine: #7FB3AE;
+    --chat-workspace-me-badge-bg: #7FB3AE;
+    --chat-workspace-me-badge-ink: #15171A;
+  }
+}
+
+/* =========================================================================
+   2. 글자 크기 (13 / 15 / 17 / 19px) · 줄간격 (snug / normal / relaxed)
+   ========================================================================= */
+:root[data-chat-font="13"],
+.chat-skin-preview[data-preview-font="13"] {
+  --chat-font-size: 13px;
+  --chat-code-font-size: 12px;
+}
+
+:root[data-chat-font="15"],
+.chat-skin-preview[data-preview-font="15"] {
+  --chat-font-size: 15px;
+  --chat-code-font-size: 13px;
+}
+
+:root[data-chat-font="17"],
+.chat-skin-preview[data-preview-font="17"] {
+  --chat-font-size: 17px;
+  --chat-code-font-size: 14px;
+}
+
+:root[data-chat-font="19"],
+.chat-skin-preview[data-preview-font="19"] {
+  --chat-font-size: 19px;
+  --chat-code-font-size: 15px;
+}
+
+:root[data-chat-leading="snug"],
+.chat-skin-preview[data-preview-leading="snug"] {
+  --chat-line-height: 1.42;
+}
+
+:root[data-chat-leading="normal"],
+.chat-skin-preview[data-preview-leading="normal"] {
+  --chat-line-height: 1.58;
+}
+
+:root[data-chat-leading="relaxed"],
+.chat-skin-preview[data-preview-leading="relaxed"] {
+  --chat-line-height: 1.76;
+}
+
+/* =========================================================================
+   3. 5종 스킨 팔레트 정의 (라이트 / 다크 / 시스템 다크 완전 독립 결합)
+   ========================================================================= */
+
+/* --- 스킨 1: 아르센 서재 (arsen) --- */
+:root[data-chat-skin="arsen"],
+.chat-skin-preview[data-preview-skin="arsen"] {
+  --chat-canvas-bg: #F3EFE6;
+  --chat-canvas-ink: #23221F;
+  --chat-canvas-muted: #656159;
+  --chat-canvas-line: #DDD6C7;
+  --chat-topbar-bg: #FBF9F4;
+  --chat-topbar-line: #E2DCCF;
+  --chat-strip-bg: #EAE4D7;
+  --chat-strip-ink: #5D5951;
+  --chat-composer-bg: #FBF9F4;
+  --chat-composer-input-bg: #F3EFE6;
+  --chat-composer-line: #CBC3B2;
+
+  --chat-bubble-other-bg: #FBF9F4;
+  --chat-bubble-other-border: #DDD5C5;
+  --chat-bubble-other-ink: #23221F;
+  --chat-bubble-other-muted: #656057;
+  --chat-bubble-other-divider: #E2DCCF;
+
+  --chat-bubble-mine-bg: #DFECEA;
+  --chat-bubble-mine-border: #2F5D62;
+  --chat-bubble-mine-ink: #1A2F32;
+  --chat-bubble-mine-muted: #2B4E52;
+  --chat-bubble-mine-divider: #B9D3CF;
+
+  --chat-code-other-bg: #EAE4D7;
+  --chat-code-other-border: #D7CEBE;
+  --chat-code-other-ink: #23221F;
+  --chat-code-mine-bg: #CEE1DE;
+  --chat-code-mine-border: #9AC0BB;
+  --chat-code-mine-ink: #16282A;
+  --chat-chip-mine-bg: #FBF9F4;
+  --chat-chip-mine-border: #2F5D62;
+  --chat-chip-mine-ink: #1E3E42;
+}
+
+:root[data-theme="dark"][data-chat-skin="arsen"],
+:root[data-theme="dark"] .chat-skin-preview[data-preview-skin="arsen"] {
+  --chat-canvas-bg: #15171A;
+  --chat-canvas-ink: #E9E5DC;
+  --chat-canvas-muted: #9D9990;
+  --chat-canvas-line: #2C3036;
+  --chat-topbar-bg: #1E2125;
+  --chat-topbar-line: #2C3036;
+  --chat-strip-bg: #262A30;
+  --chat-strip-ink: #A6A298;
+  --chat-composer-bg: #1E2125;
+  --chat-composer-input-bg: #15171A;
+  --chat-composer-line: #3E444D;
+
+  --chat-bubble-other-bg: #1E2125;
+  --chat-bubble-other-border: #2F343C;
+  --chat-bubble-other-ink: #E9E5DC;
+  --chat-bubble-other-muted: #A5A096;
+  --chat-bubble-other-divider: #2F343C;
+
+  --chat-bubble-mine-bg: #1E3133;
+  --chat-bubble-mine-border: #7FB3AE;
+  --chat-bubble-mine-ink: #EAF4F2;
+  --chat-bubble-mine-muted: #B6D8D4;
+  --chat-bubble-mine-divider: #2E4B4E;
+
+  --chat-code-other-bg: #262A30;
+  --chat-code-other-border: #363C45;
+  --chat-code-other-ink: #E9E5DC;
+  --chat-code-mine-bg: #162426;
+  --chat-code-mine-border: #385B5E;
+  --chat-code-mine-ink: #EAF4F2;
+  --chat-chip-mine-bg: #162426;
+  --chat-chip-mine-border: #7FB3AE;
+  --chat-chip-mine-ink: #D5ECE9;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"])[data-chat-skin="arsen"],
+  :root:not([data-theme="light"]) .chat-skin-preview[data-preview-skin="arsen"] {
+    --chat-canvas-bg: #15171A;
+    --chat-canvas-ink: #E9E5DC;
+    --chat-canvas-muted: #9D9990;
+    --chat-canvas-line: #2C3036;
+    --chat-topbar-bg: #1E2125;
+    --chat-topbar-line: #2C3036;
+    --chat-strip-bg: #262A30;
+    --chat-strip-ink: #A6A298;
+    --chat-composer-bg: #1E2125;
+    --chat-composer-input-bg: #15171A;
+    --chat-composer-line: #3E444D;
+
+    --chat-bubble-other-bg: #1E2125;
+    --chat-bubble-other-border: #2F343C;
+    --chat-bubble-other-ink: #E9E5DC;
+    --chat-bubble-other-muted: #A5A096;
+    --chat-bubble-other-divider: #2F343C;
+
+    --chat-bubble-mine-bg: #1E3133;
+    --chat-bubble-mine-border: #7FB3AE;
+    --chat-bubble-mine-ink: #EAF4F2;
+    --chat-bubble-mine-muted: #B6D8D4;
+    --chat-bubble-mine-divider: #2E4B4E;
+
+    --chat-code-other-bg: #262A30;
+    --chat-code-other-border: #363C45;
+    --chat-code-other-ink: #E9E5DC;
+    --chat-code-mine-bg: #162426;
+    --chat-code-mine-border: #385B5E;
+    --chat-code-mine-ink: #EAF4F2;
+    --chat-chip-mine-bg: #162426;
+    --chat-chip-mine-border: #7FB3AE;
+    --chat-chip-mine-ink: #D5ECE9;
+  }
+}
+
+/* --- 스킨 2: 햇살 말풍선 (sunlit) --- */
+:root[data-chat-skin="sunlit"],
+.chat-skin-preview[data-preview-skin="sunlit"] {
+  --chat-canvas-bg: #F1E6D8;
+  --chat-canvas-ink: #30281E;
+  --chat-canvas-muted: #584535;
+  --chat-canvas-line: #D9C8B1;
+  --chat-topbar-bg: #E9DBC9;
+  --chat-topbar-line: #D8C2A6;
+  --chat-strip-bg: #EADCCB;
+  --chat-strip-ink: #483A2D;
+  --chat-composer-bg: #FAF4EC;
+  --chat-composer-input-bg: #FBF7F1;
+  --chat-composer-line: #DBCAB6;
+
+  --chat-bubble-other-bg: #FFF9F1;
+  --chat-bubble-other-border: #DECFBD;
+  --chat-bubble-other-ink: #191919;
+  --chat-bubble-other-muted: #675847;
+  --chat-bubble-other-divider: #E9DFD1;
+  --chat-bubble-other-shadow: 0 1px 3px rgba(20, 32, 46, 0.12);
+
+  --chat-bubble-mine-bg: #E6AD79;
+  --chat-bubble-mine-border: #BA8353;
+  --chat-bubble-mine-ink: #191919;
+  --chat-bubble-mine-muted: #4E3525;
+  --chat-bubble-mine-divider: #C48C60;
+  --chat-bubble-mine-shadow: 0 1px 3px rgba(20, 32, 46, 0.12);
+
+  --chat-code-other-bg: #F4EBDD;
+  --chat-code-other-border: #DDD0BF;
+  --chat-code-other-ink: #191919;
+  --chat-code-mine-bg: #F3C99F;
+  --chat-code-mine-border: #AD764D;
+  --chat-code-mine-ink: #191919;
+  --chat-chip-mine-bg: #F7DCBC;
+  --chat-chip-mine-border: #8A5A35;
+  --chat-chip-mine-ink: #191919;
+}
+
+:root[data-theme="dark"][data-chat-skin="sunlit"],
+:root[data-theme="dark"] .chat-skin-preview[data-preview-skin="sunlit"] {
+  --chat-canvas-bg: #282421;
+  --chat-canvas-ink: #F2EBE4;
+  --chat-canvas-muted: #CABBAD;
+  --chat-canvas-line: #4A3F36;
+  --chat-topbar-bg: #211D1A;
+  --chat-topbar-line: #453C33;
+  --chat-strip-bg: #322C26;
+  --chat-strip-ink: #DDD0C2;
+  --chat-composer-bg: #211D1A;
+  --chat-composer-input-bg: #2D2722;
+  --chat-composer-line: #50443A;
+
+  --chat-bubble-other-bg: #3C332C;
+  --chat-bubble-other-border: #594B40;
+  --chat-bubble-other-ink: #FCF4EC;
+  --chat-bubble-other-muted: #D6C9BC;
+  --chat-bubble-other-divider: #56493D;
+  --chat-bubble-other-shadow: 0 2px 6px rgba(8, 12, 18, 0.32);
+
+  --chat-bubble-mine-bg: #E6AD79;
+  --chat-bubble-mine-border: #B17E50;
+  --chat-bubble-mine-ink: #191919;
+  --chat-bubble-mine-muted: #4E3525;
+  --chat-bubble-mine-divider: #BF885A;
+  --chat-bubble-mine-shadow: 0 2px 6px rgba(8, 12, 18, 0.32);
+
+  --chat-code-other-bg: #29231E;
+  --chat-code-other-border: #5C4C40;
+  --chat-code-other-ink: #FCF4EC;
+  --chat-code-mine-bg: #F3C99F;
+  --chat-code-mine-border: #A57550;
+  --chat-code-mine-ink: #191919;
+  --chat-chip-mine-bg: #F7DCBC;
+  --chat-chip-mine-border: #795033;
+  --chat-chip-mine-ink: #191919;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"])[data-chat-skin="sunlit"],
+  :root:not([data-theme="light"]) .chat-skin-preview[data-preview-skin="sunlit"] {
+    --chat-canvas-bg: #282421;
+    --chat-canvas-ink: #F2EBE4;
+    --chat-canvas-muted: #CABBAD;
+    --chat-canvas-line: #4A3F36;
+    --chat-topbar-bg: #211D1A;
+    --chat-topbar-line: #453C33;
+    --chat-strip-bg: #322C26;
+    --chat-strip-ink: #DDD0C2;
+    --chat-composer-bg: #211D1A;
+    --chat-composer-input-bg: #2D2722;
+    --chat-composer-line: #50443A;
+
+    --chat-bubble-other-bg: #3C332C;
+    --chat-bubble-other-border: #594B40;
+    --chat-bubble-other-ink: #FCF4EC;
+    --chat-bubble-other-muted: #D6C9BC;
+    --chat-bubble-other-divider: #56493D;
+    --chat-bubble-other-shadow: 0 2px 6px rgba(8, 12, 18, 0.32);
+
+    --chat-bubble-mine-bg: #E6AD79;
+    --chat-bubble-mine-border: #B17E50;
+    --chat-bubble-mine-ink: #191919;
+    --chat-bubble-mine-muted: #4E3525;
+    --chat-bubble-mine-divider: #BF885A;
+    --chat-bubble-mine-shadow: 0 2px 6px rgba(8, 12, 18, 0.32);
+
+    --chat-code-other-bg: #29231E;
+    --chat-code-other-border: #5C4C40;
+    --chat-code-other-ink: #FCF4EC;
+    --chat-code-mine-bg: #F3C99F;
+    --chat-code-mine-border: #A57550;
+    --chat-code-mine-ink: #191919;
+    --chat-chip-mine-bg: #F7DCBC;
+    --chat-chip-mine-border: #795033;
+    --chat-chip-mine-ink: #191919;
+  }
+}
+
+/* --- 스킨 3: 하늘 말풍선 (sky) --- */
+:root[data-chat-skin="sky"],
+.chat-skin-preview[data-preview-skin="sky"] {
+  --chat-canvas-bg: #F7F8FA;
+  --chat-canvas-ink: #1C1C1E;
+  --chat-canvas-muted: #636369;
+  --chat-canvas-line: #E2E3E8;
+  --chat-topbar-bg: #F9F9FB;
+  --chat-topbar-line: #E2E3E8;
+  --chat-strip-bg: #EFEFF4;
+  --chat-strip-ink: #54545A;
+  --chat-composer-bg: #F9F9FB;
+  --chat-composer-input-bg: #EFEFF4;
+  --chat-composer-line: #D1D1D6;
+
+  --chat-bubble-other-bg: #E9E9ED;
+  --chat-bubble-other-border: transparent;
+  --chat-bubble-other-ink: #1C1C1E;
+  --chat-bubble-other-muted: #55555B;
+  --chat-bubble-other-divider: #D2D2D8;
+  --chat-bubble-other-shadow: none;
+
+  --chat-bubble-mine-bg: #3B6086;
+  --chat-bubble-mine-border: transparent;
+  --chat-bubble-mine-ink: #F9FBFF;
+  --chat-bubble-mine-muted: #E0EEFF;
+  --chat-bubble-mine-divider: rgba(249, 251, 255, 0.32);
+  --chat-bubble-mine-shadow: none;
+
+  --chat-code-other-bg: #DCDCE2;
+  --chat-code-other-border: #C7C7D0;
+  --chat-code-other-ink: #1C1C1E;
+  --chat-code-mine-bg: #294A6C;
+  --chat-code-mine-border: rgba(249, 251, 255, 0.28);
+  --chat-code-mine-ink: #F9FBFF;
+  --chat-chip-mine-bg: #294A6C;
+  --chat-chip-mine-border: rgba(249, 251, 255, 0.45);
+  --chat-chip-mine-ink: #F9FBFF;
+}
+
+:root[data-theme="dark"][data-chat-skin="sky"],
+:root[data-theme="dark"] .chat-skin-preview[data-preview-skin="sky"] {
+  --chat-canvas-bg: #121318;
+  --chat-canvas-ink: #F2F2F7;
+  --chat-canvas-muted: #9898A3;
+  --chat-canvas-line: #272830;
+  --chat-topbar-bg: #191A21;
+  --chat-topbar-line: #292A33;
+  --chat-strip-bg: #1F2028;
+  --chat-strip-ink: #A9A9B5;
+  --chat-composer-bg: #191A21;
+  --chat-composer-input-bg: #24252E;
+  --chat-composer-line: #383945;
+
+  --chat-bubble-other-bg: #262730;
+  --chat-bubble-other-border: transparent;
+  --chat-bubble-other-ink: #F2F2F7;
+  --chat-bubble-other-muted: #AEAEB8;
+  --chat-bubble-other-divider: #383944;
+  --chat-bubble-other-shadow: none;
+
+  --chat-bubble-mine-bg: #3C6188;
+  --chat-bubble-mine-border: transparent;
+  --chat-bubble-mine-ink: #F9FBFF;
+  --chat-bubble-mine-muted: #E0EEFF;
+  --chat-bubble-mine-divider: rgba(249, 251, 255, 0.32);
+  --chat-bubble-mine-shadow: none;
+
+  --chat-code-other-bg: #1B1C24;
+  --chat-code-other-border: #363744;
+  --chat-code-other-ink: #F2F2F7;
+  --chat-code-mine-bg: #2C4C6F;
+  --chat-code-mine-border: rgba(249, 251, 255, 0.28);
+  --chat-code-mine-ink: #F9FBFF;
+  --chat-chip-mine-bg: #2C4C6F;
+  --chat-chip-mine-border: rgba(249, 251, 255, 0.45);
+  --chat-chip-mine-ink: #F9FBFF;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"])[data-chat-skin="sky"],
+  :root:not([data-theme="light"]) .chat-skin-preview[data-preview-skin="sky"] {
+    --chat-canvas-bg: #121318;
+    --chat-canvas-ink: #F2F2F7;
+    --chat-canvas-muted: #9898A3;
+    --chat-canvas-line: #272830;
+    --chat-topbar-bg: #191A21;
+    --chat-topbar-line: #292A33;
+    --chat-strip-bg: #1F2028;
+    --chat-strip-ink: #A9A9B5;
+    --chat-composer-bg: #191A21;
+    --chat-composer-input-bg: #24252E;
+    --chat-composer-line: #383945;
+
+    --chat-bubble-other-bg: #262730;
+    --chat-bubble-other-border: transparent;
+    --chat-bubble-other-ink: #F2F2F7;
+    --chat-bubble-other-muted: #AEAEB8;
+    --chat-bubble-other-divider: #383944;
+    --chat-bubble-other-shadow: none;
+
+    --chat-bubble-mine-bg: #3C6188;
+    --chat-bubble-mine-border: transparent;
+    --chat-bubble-mine-ink: #F9FBFF;
+    --chat-bubble-mine-muted: #E0EEFF;
+    --chat-bubble-mine-divider: rgba(249, 251, 255, 0.32);
+    --chat-bubble-mine-shadow: none;
+
+    --chat-code-other-bg: #1B1C24;
+    --chat-code-other-border: #363744;
+    --chat-code-other-ink: #F2F2F7;
+    --chat-code-mine-bg: #2C4C6F;
+    --chat-code-mine-border: rgba(249, 251, 255, 0.28);
+    --chat-code-mine-ink: #F9FBFF;
+    --chat-chip-mine-bg: #2C4C6F;
+    --chat-chip-mine-border: rgba(249, 251, 255, 0.45);
+    --chat-chip-mine-ink: #F9FBFF;
+  }
+}
+
+/* --- 스킨 4: 작업실 (workspace) --- */
+:root[data-chat-skin="workspace"],
+.chat-skin-preview[data-preview-skin="workspace"] {
+  --chat-canvas-bg: #F8FAFC;
+  --chat-canvas-ink: #111827;
+  --chat-canvas-muted: #526071;
+  --chat-canvas-line: #E2E8F0;
+  --chat-topbar-bg: #FBFDFF;
+  --chat-topbar-line: #E2E8F0;
+  --chat-strip-bg: #F1F5F9;
+  --chat-strip-ink: #475569;
+  --chat-composer-bg: #FBFDFF;
+  --chat-composer-input-bg: #F1F5F9;
+  --chat-composer-line: #CBD5E1;
+
+  --chat-bubble-other-bg: #FBFDFF;
+  --chat-bubble-other-border: #DCE4EE;
+  --chat-bubble-other-ink: #111827;
+  --chat-bubble-other-muted: #4B5563;
+  --chat-bubble-other-divider: #E2E8F0;
+  --chat-bubble-other-shadow: none;
+
+  --chat-bubble-mine-bg: #EFF5FF;
+  --chat-bubble-mine-border: #C7DAFA;
+  --chat-bubble-mine-ink: #111827;
+  --chat-bubble-mine-muted: #334155;
+  --chat-bubble-mine-divider: #CBD5E1;
+  --chat-bubble-mine-shadow: none;
+
+  --chat-code-other-bg: #F1F5F9;
+  --chat-code-other-border: #CBD5E1;
+  --chat-code-other-ink: #0F172A;
+  --chat-code-mine-bg: #E2ECF9;
+  --chat-code-mine-border: #B6CCF2;
+  --chat-code-mine-ink: #0F172A;
+  --chat-chip-mine-bg: #FBFDFF;
+  --chat-chip-mine-border: #2563EB;
+  --chat-chip-mine-ink: #1D4ED8;
+
+  --chat-workspace-bar-other: #64748B;
+  --chat-workspace-bar-mine: #2563EB;
+  --chat-workspace-me-badge-bg: #2563EB;
+  --chat-workspace-me-badge-ink: #F8FAFC;
+}
+
+:root[data-theme="dark"][data-chat-skin="workspace"],
+:root[data-theme="dark"] .chat-skin-preview[data-preview-skin="workspace"] {
+  --chat-canvas-bg: #171A21;
+  --chat-canvas-ink: #E5E9F0;
+  --chat-canvas-muted: #9AA5B5;
+  --chat-canvas-line: #2A303C;
+  --chat-topbar-bg: #1D212A;
+  --chat-topbar-line: #2A303C;
+  --chat-strip-bg: #222733;
+  --chat-strip-ink: #A7B2C2;
+  --chat-composer-bg: #1D212A;
+  --chat-composer-input-bg: #151820;
+  --chat-composer-line: #384152;
+
+  --chat-bubble-other-bg: #1F242E;
+  --chat-bubble-other-border: #2E3544;
+  --chat-bubble-other-ink: #E5E9F0;
+  --chat-bubble-other-muted: #A3AEBF;
+  --chat-bubble-other-divider: #2E3544;
+  --chat-bubble-other-shadow: none;
+
+  --chat-bubble-mine-bg: #1C2636;
+  --chat-bubble-mine-border: #2E4260;
+  --chat-bubble-mine-ink: #ECF3FF;
+  --chat-bubble-mine-muted: #B8CAE8;
+  --chat-bubble-mine-divider: #2E4260;
+  --chat-bubble-mine-shadow: none;
+
+  --chat-code-other-bg: #141820;
+  --chat-code-other-border: #2E3646;
+  --chat-code-other-ink: #E5E9F0;
+  --chat-code-mine-bg: #141D2B;
+  --chat-code-mine-border: #334B6E;
+  --chat-code-mine-ink: #ECF3FF;
+  --chat-chip-mine-bg: #141D2B;
+  --chat-chip-mine-border: #60A5FA;
+  --chat-chip-mine-ink: #BFDBFE;
+
+  --chat-workspace-bar-other: #94A3B8;
+  --chat-workspace-bar-mine: #60A5FA;
+  --chat-workspace-me-badge-bg: #3B82F6;
+  --chat-workspace-me-badge-ink: #F8FAFC;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"])[data-chat-skin="workspace"],
+  :root:not([data-theme="light"]) .chat-skin-preview[data-preview-skin="workspace"] {
+    --chat-canvas-bg: #171A21;
+    --chat-canvas-ink: #E5E9F0;
+    --chat-canvas-muted: #9AA5B5;
+    --chat-canvas-line: #2A303C;
+    --chat-topbar-bg: #1D212A;
+    --chat-topbar-line: #2A303C;
+    --chat-strip-bg: #222733;
+    --chat-strip-ink: #A7B2C2;
+    --chat-composer-bg: #1D212A;
+    --chat-composer-input-bg: #151820;
+    --chat-composer-line: #384152;
+
+    --chat-bubble-other-bg: #1F242E;
+    --chat-bubble-other-border: #2E3544;
+    --chat-bubble-other-ink: #E5E9F0;
+    --chat-bubble-other-muted: #A3AEBF;
+    --chat-bubble-other-divider: #2E3544;
+    --chat-bubble-other-shadow: none;
+
+    --chat-bubble-mine-bg: #1C2636;
+    --chat-bubble-mine-border: #2E4260;
+    --chat-bubble-mine-ink: #ECF3FF;
+    --chat-bubble-mine-muted: #B8CAE8;
+    --chat-bubble-mine-divider: #2E4260;
+    --chat-bubble-mine-shadow: none;
+
+    --chat-code-other-bg: #141820;
+    --chat-code-other-border: #2E3646;
+    --chat-code-other-ink: #E5E9F0;
+    --chat-code-mine-bg: #141D2B;
+    --chat-code-mine-border: #334B6E;
+    --chat-code-mine-ink: #ECF3FF;
+    --chat-chip-mine-bg: #141D2B;
+    --chat-chip-mine-border: #60A5FA;
+    --chat-chip-mine-ink: #BFDBFE;
+
+    --chat-workspace-bar-other: #94A3B8;
+    --chat-workspace-bar-mine: #60A5FA;
+    --chat-workspace-me-badge-bg: #3B82F6;
+    --chat-workspace-me-badge-ink: #F8FAFC;
+  }
+}
+
+/* --- 스킨 5: 포레스트 민트 (forest) --- */
+:root[data-chat-skin="forest"],
+.chat-skin-preview[data-preview-skin="forest"] {
+  --chat-canvas-bg: #E7F0EB;
+  --chat-canvas-ink: #18271F;
+  --chat-canvas-muted: #455E51;
+  --chat-canvas-line: #C8DCD0;
+  --chat-topbar-bg: #F5FAF7;
+  --chat-topbar-line: #CFE0D6;
+  --chat-strip-bg: #DCE9E1;
+  --chat-strip-ink: #385144;
+  --chat-composer-bg: #F5FAF7;
+  --chat-composer-input-bg: #EAF3EE;
+  --chat-composer-line: #B6CEC0;
+
+  --chat-bubble-other-bg: #FAFDFB;
+  --chat-bubble-other-border: #CBE0D4;
+  --chat-bubble-other-ink: #18271F;
+  --chat-bubble-other-muted: #4A6356;
+  --chat-bubble-other-divider: #D6E6DD;
+  --chat-bubble-other-shadow: 0 2px 6px rgba(24, 48, 36, 0.06);
+
+  --chat-bubble-mine-bg: #CCE5D7;
+  --chat-bubble-mine-border: #2D6A4F;
+  --chat-bubble-mine-ink: #13261C;
+  --chat-bubble-mine-muted: #274D3B;
+  --chat-bubble-mine-divider: #A7CEB9;
+  --chat-bubble-mine-shadow: 0 2px 6px rgba(24, 48, 36, 0.06);
+
+  --chat-code-other-bg: #EBF4EF;
+  --chat-code-other-border: #C4DACE;
+  --chat-code-other-ink: #18271F;
+  --chat-code-mine-bg: #B9DAC8;
+  --chat-code-mine-border: #7DB398;
+  --chat-code-mine-ink: #11231A;
+  --chat-chip-mine-bg: #F5FAF7;
+  --chat-chip-mine-border: #2D6A4F;
+  --chat-chip-mine-ink: #1E4D38;
+}
+
+:root[data-theme="dark"][data-chat-skin="forest"],
+:root[data-theme="dark"] .chat-skin-preview[data-preview-skin="forest"] {
+  --chat-canvas-bg: #131C18;
+  --chat-canvas-ink: #E5F0EA;
+  --chat-canvas-muted: #98B3A4;
+  --chat-canvas-line: #25372F;
+  --chat-topbar-bg: #18241F;
+  --chat-topbar-line: #263931;
+  --chat-strip-bg: #1D2B25;
+  --chat-strip-ink: #A6C0B2;
+  --chat-composer-bg: #18241F;
+  --chat-composer-input-bg: #121B17;
+  --chat-composer-line: #334D42;
+
+  --chat-bubble-other-bg: #1C2A24;
+  --chat-bubble-other-border: #2B4037;
+  --chat-bubble-other-ink: #E5F0EA;
+  --chat-bubble-other-muted: #A2BDAD;
+  --chat-bubble-other-divider: #2C4238;
+  --chat-bubble-other-shadow: 0 2px 8px rgba(6, 12, 9, 0.32);
+
+  --chat-bubble-mine-bg: #1E3B30;
+  --chat-bubble-mine-border: #52B788;
+  --chat-bubble-mine-ink: #EAF7F0;
+  --chat-bubble-mine-muted: #B7DEC9;
+  --chat-bubble-mine-divider: #2E5747;
+  --chat-bubble-mine-shadow: 0 2px 8px rgba(6, 12, 9, 0.32);
+
+  --chat-code-other-bg: #141F1A;
+  --chat-code-other-border: #2D4339;
+  --chat-code-other-ink: #E5F0EA;
+  --chat-code-mine-bg: #162B23;
+  --chat-code-mine-border: #3B6E59;
+  --chat-code-mine-ink: #EAF7F0;
+  --chat-chip-mine-bg: #162B23;
+  --chat-chip-mine-border: #52B788;
+  --chat-chip-mine-ink: #CBEFE0;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"])[data-chat-skin="forest"],
+  :root:not([data-theme="light"]) .chat-skin-preview[data-preview-skin="forest"] {
+    --chat-canvas-bg: #131C18;
+    --chat-canvas-ink: #E5F0EA;
+    --chat-canvas-muted: #98B3A4;
+    --chat-canvas-line: #25372F;
+    --chat-topbar-bg: #18241F;
+    --chat-topbar-line: #263931;
+    --chat-strip-bg: #1D2B25;
+    --chat-strip-ink: #A6C0B2;
+    --chat-composer-bg: #18241F;
+    --chat-composer-input-bg: #121B17;
+    --chat-composer-line: #334D42;
+
+    --chat-bubble-other-bg: #1C2A24;
+    --chat-bubble-other-border: #2B4037;
+    --chat-bubble-other-ink: #E5F0EA;
+    --chat-bubble-other-muted: #A2BDAD;
+    --chat-bubble-other-divider: #2C4238;
+    --chat-bubble-other-shadow: 0 2px 8px rgba(6, 12, 9, 0.32);
+
+    --chat-bubble-mine-bg: #1E3B30;
+    --chat-bubble-mine-border: #52B788;
+    --chat-bubble-mine-ink: #EAF7F0;
+    --chat-bubble-mine-muted: #B7DEC9;
+    --chat-bubble-mine-divider: #2E5747;
+    --chat-bubble-mine-shadow: 0 2px 8px rgba(6, 12, 9, 0.32);
+
+    --chat-code-other-bg: #141F1A;
+    --chat-code-other-border: #2D4339;
+    --chat-code-other-ink: #E5F0EA;
+    --chat-code-mine-bg: #162B23;
+    --chat-code-mine-border: #3B6E59;
+    --chat-code-mine-ink: #EAF7F0;
+    --chat-chip-mine-bg: #162B23;
+    --chat-chip-mine-border: #52B788;
+    --chat-chip-mine-ink: #CBEFE0;
+  }
+}
+
+/* =========================================================================
+   4. 실제 대화창(.chat-pane / .guest-shell) 및 미리보기(.chat-skin-preview) 공통 적용
+   ========================================================================= */
+.chat-pane,
+.guest-shell {
+  background: var(--chat-canvas-bg);
+  color: var(--chat-canvas-ink);
+}
+
+.chat-pane > .pane-topbar,
+.guest-shell > .pane-topbar {
+  background: var(--chat-topbar-bg);
+  border-bottom-color: var(--chat-topbar-line);
+  color: var(--chat-canvas-ink);
+}
+
+.chat-pane > .pane-topbar .room-sub,
+.guest-shell > .pane-topbar .room-sub,
+.chat-pane > .pane-topbar .icon-btn,
+.guest-shell > .pane-topbar .icon-btn {
+  color: var(--chat-canvas-muted);
+}
+
+.chat-pane > .trust-strip,
+.guest-shell > .trust-strip {
+  background: var(--chat-strip-bg);
+  color: var(--chat-strip-ink);
+  border-bottom-color: var(--chat-topbar-line);
+}
+
+.chat-pane .composer-wrap,
+.guest-shell > .composer-wrap {
+  background: var(--chat-composer-bg);
+  border-top-color: var(--chat-topbar-line);
+}
+
+.chat-pane .composer-input,
+.guest-shell > .composer-wrap .composer-input {
+  background: var(--chat-composer-input-bg);
+  border-color: var(--chat-composer-line);
+  font-size: var(--chat-font-size);
+  line-height: var(--chat-line-height);
+}
+
+.chat-pane .date-divider,
+.chat-skin-preview .date-divider {
+  color: var(--chat-canvas-muted);
+}
+
+.chat-pane .date-divider::before,
+.chat-pane .date-divider::after,
+.chat-skin-preview .date-divider::before,
+.chat-skin-preview .date-divider::after {
+  background: var(--chat-canvas-line);
+}
+
+.chat-pane .msg-meta,
+.chat-skin-preview .msg-meta {
+  color: var(--chat-canvas-muted);
+}
+
+.chat-pane .msg-footer-actions .mini-action-btn {
+  color: var(--chat-canvas-muted);
+}
+
+.chat-pane .msg-footer-actions .mini-action-btn:hover {
+  color: var(--chat-canvas-ink);
+  background: rgba(128, 128, 128, 0.14);
+}
+
+/* 말풍선 기본 + 서체·줄간격 반영 */
+.chat-pane .msg-bubble,
+.chat-skin-preview .msg-bubble {
+  position: relative;
+  background: var(--chat-bubble-other-bg);
+  border-color: var(--chat-bubble-other-border);
+  color: var(--chat-bubble-other-ink);
+  box-shadow: var(--chat-bubble-other-shadow);
+  font-size: var(--chat-font-size);
+  line-height: var(--chat-line-height);
+}
+
+.chat-pane .msg-row.is-mine .msg-bubble,
+.chat-skin-preview .msg-row.is-mine .msg-bubble {
+  background: var(--chat-bubble-mine-bg);
+  border-color: var(--chat-bubble-mine-border);
+  color: var(--chat-bubble-mine-ink);
+  box-shadow: var(--chat-bubble-mine-shadow);
+}
+
+.chat-pane .msg-reply-ref,
+.chat-skin-preview .msg-reply-ref {
+  color: var(--chat-bubble-other-muted);
+  border-bottom-color: var(--chat-bubble-other-divider);
+}
+
+.chat-pane .msg-row.is-mine .msg-reply-ref,
+.chat-skin-preview .msg-row.is-mine .msg-reply-ref {
+  color: var(--chat-bubble-mine-muted);
+  border-bottom-color: var(--chat-bubble-mine-divider);
+}
+
+.chat-pane .msg-code,
+.chat-skin-preview .msg-code {
+  background: var(--chat-code-other-bg);
+  border-color: var(--chat-code-other-border);
+  color: var(--chat-code-other-ink);
+  font-size: var(--chat-code-font-size);
+  line-height: var(--chat-line-height);
+}
+
+.chat-pane .msg-row.is-mine .msg-code,
+.chat-skin-preview .msg-row.is-mine .msg-code {
+  background: var(--chat-code-mine-bg);
+  border-color: var(--chat-code-mine-border);
+  color: var(--chat-code-mine-ink);
+}
+
+/* 질문별 답변 상태 칩(.question-chips) 스킨 대비 보호 */
+.chat-pane .msg-bubble .question-chips,
+.chat-skin-preview .msg-bubble .question-chips {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 6px;
+  margin-top: var(--sp-2);
+  padding-top: var(--sp-2);
+  border-top: 1px solid var(--chat-bubble-other-divider);
+}
+
+.chat-pane .msg-row.is-mine .msg-bubble .question-chips,
+.chat-skin-preview .msg-row.is-mine .msg-bubble .question-chips {
+  border-top-color: var(--chat-bubble-mine-divider);
+}
+
+.chat-pane .msg-row.is-mine .msg-bubble .question-chips .chip,
+.chat-skin-preview .msg-row.is-mine .msg-bubble .question-chips .chip {
+  background: var(--chat-chip-mine-bg);
+  border-color: var(--chat-chip-mine-border);
+  color: var(--chat-chip-mine-ink);
+}
+
+.chat-pane .msg-bubble .question-chips .mini-action-btn,
+.chat-skin-preview .msg-bubble .question-chips .mini-action-btn {
+  color: var(--chat-bubble-other-ink);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+.chat-pane .msg-row.is-mine .msg-bubble .question-chips .mini-action-btn,
+.chat-skin-preview .msg-row.is-mine .msg-bubble .question-chips .mini-action-btn {
+  color: var(--chat-bubble-mine-ink);
+}
+
+/* =========================================================================
+   5. 스킨별 고유 조형 (햇살 · 하늘 · 작업실 · 포레스트)
+   ========================================================================= */
+
+/* 햇살 말풍선의 발신자 이름 대비 */
+:root:not([data-theme="dark"])[data-chat-skin="sunlit"] .chat-pane .sender-name,
+:root:not([data-theme="dark"]) .chat-skin-preview[data-preview-skin="sunlit"] .sender-name {
+  color: #33291F;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"])[data-chat-skin="sunlit"] .chat-pane .sender-name,
+  :root:not([data-theme="light"]) .chat-skin-preview[data-preview-skin="sunlit"] .sender-name {
+    color: #EFE1D4;
+  }
+}
+
+:root[data-theme="dark"][data-chat-skin="sunlit"] .chat-pane .sender-name,
+:root[data-theme="dark"] .chat-skin-preview[data-preview-skin="sunlit"] .sender-name {
+  color: #EFE1D4;
+}
+
+:root[data-chat-skin="sunlit"] .chat-pane .msg-bubble,
+.chat-skin-preview[data-preview-skin="sunlit"] .msg-bubble {
+  border-radius: 12px;
+}
+
+:root[data-chat-skin="sunlit"] .chat-pane .msg-row.is-mine .msg-bubble,
+.chat-skin-preview[data-preview-skin="sunlit"] .msg-row.is-mine .msg-bubble {
+  border-width: 1px 1px 3px;
+}
+
+/* 하늘 말풍선 */
+:root[data-chat-skin="sky"] .chat-pane .msg-bubble,
+.chat-skin-preview[data-preview-skin="sky"] .msg-bubble {
+  border-radius: 16px;
+}
+
+/* 작업실: 왼쪽 정렬 문서·코드 레이아웃 */
+.chat-pane .workspace-own-avatar,
+.chat-pane .workspace-author,
+.chat-skin-preview:not([data-preview-skin="workspace"]) .workspace-own-avatar,
+.chat-skin-preview:not([data-preview-skin="workspace"]) .workspace-author {
+  display: none;
+}
+
+:root[data-chat-skin="workspace"] .chat-pane .workspace-own-avatar,
+.chat-skin-preview[data-preview-skin="workspace"] .workspace-own-avatar {
+  display: inline-flex;
+}
+
+:root[data-chat-skin="workspace"] .chat-pane .workspace-author,
+.chat-skin-preview[data-preview-skin="workspace"] .workspace-author {
+  display: inline;
+  font-weight: 700;
+  color: var(--chat-canvas-ink);
+}
+
+:root[data-chat-skin="workspace"] .chat-pane .msg-row,
+:root[data-chat-skin="workspace"] .chat-pane .msg-row.is-mine,
+.chat-skin-preview[data-preview-skin="workspace"] .msg-row,
+.chat-skin-preview[data-preview-skin="workspace"] .msg-row.is-mine {
+  max-width: 100%;
+  width: 100%;
+  align-self: stretch;
+  flex-direction: row;
+  align-items: flex-start;
+}
+
+:root[data-chat-skin="workspace"] .chat-pane .msg-col,
+:root[data-chat-skin="workspace"] .chat-pane .msg-row.is-mine .msg-col,
+.chat-skin-preview[data-preview-skin="workspace"] .msg-col,
+.chat-skin-preview[data-preview-skin="workspace"] .msg-row.is-mine .msg-col {
+  align-items: flex-start;
+  flex: 1;
+  min-width: 0;
+}
+
+:root[data-chat-skin="workspace"] .chat-pane .msg-row .avatar,
+.chat-skin-preview[data-preview-skin="workspace"] .msg-row .avatar {
+  border-radius: 8px;
+}
+
+/* 62b337cc 하위 호환: .workspace-own-avatar가 없는 구형 DOM에서만 '나' 배지 표시 */
+:root[data-chat-skin="workspace"] .chat-pane .msg-row.is-mine:not(:has(.workspace-own-avatar))::before,
+.chat-skin-preview[data-preview-skin="workspace"] .msg-row.is-mine:not(:has(.workspace-own-avatar))::before {
+  content: "나";
+  width: 36px;
+  height: 36px;
+  border-radius: 8px;
+  background: var(--chat-workspace-me-badge-bg);
+  color: var(--chat-workspace-me-badge-ink);
+  font-size: var(--fs-13);
+  font-weight: 700;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  user-select: none;
+}
+
+:root[data-chat-skin="workspace"] .chat-pane .msg-bubble,
+.chat-skin-preview[data-preview-skin="workspace"] .msg-bubble {
+  width: 100%;
+  border-radius: 8px;
+  border-left: 3px solid var(--chat-workspace-bar-other);
+}
+
+:root[data-chat-skin="workspace"] .chat-pane .msg-row.is-mine .msg-bubble,
+.chat-skin-preview[data-preview-skin="workspace"] .msg-row.is-mine .msg-bubble {
+  border-left: 3px solid var(--chat-workspace-bar-mine);
+}
+
+/* 포레스트 민트: 부드러운 보태니컬 라운드 */
+:root[data-chat-skin="forest"] .chat-pane .msg-bubble,
+.chat-skin-preview[data-preview-skin="forest"] .msg-bubble {
+  border-radius: 16px;
+}
+
+/* =========================================================================
+   6. 컴팩트 모드 (:root[data-chat-density="compact"])
+   ========================================================================= */
+:root[data-chat-density="compact"] .chat-pane .messages-scroll,
+.chat-skin-preview[data-preview-density="compact"] .preview-messages {
+  padding: var(--sp-2) var(--sp-3);
+  gap: 6px;
+}
+
+:root[data-chat-density="compact"] .chat-pane .date-divider,
+.chat-skin-preview[data-preview-density="compact"] .date-divider {
+  margin: 2px 0;
+}
+
+:root[data-chat-density="compact"] .chat-pane .msg-row,
+.chat-skin-preview[data-preview-density="compact"] .msg-row {
+  gap: 6px;
+}
+
+:root[data-chat-density="compact"] .chat-pane .msg-col,
+.chat-skin-preview[data-preview-density="compact"] .msg-col {
+  gap: 2px;
+}
+
+:root[data-chat-density="compact"] .chat-pane .msg-row .avatar,
+.chat-skin-preview[data-preview-density="compact"] .msg-row .avatar {
+  width: 28px;
+  height: 28px;
+}
+
+:root[data-chat-skin="workspace"][data-chat-density="compact"] .chat-pane .msg-row.is-mine:not(:has(.workspace-own-avatar))::before,
+.chat-skin-preview[data-preview-skin="workspace"][data-preview-density="compact"] .msg-row.is-mine:not(:has(.workspace-own-avatar))::before {
+  width: 28px;
+  height: 28px;
+}
+
+:root[data-chat-density="compact"] .chat-pane .msg-bubble,
+.chat-skin-preview[data-preview-density="compact"] .msg-bubble {
+  padding: 6px 12px;
+}
+
+:root[data-chat-density="compact"] .chat-pane .msg-code,
+.chat-skin-preview[data-preview-density="compact"] .msg-code {
+  margin: 4px 0;
+  padding: 6px 10px;
+}
+
+/* =========================================================================
+   7. 대화 설정 모달 UI (.chat-settings-*)
+   ========================================================================= */
+.sheet-panel:has(.chat-settings-root) {
+  max-width: 600px;
+}
+
+.chat-settings-root {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-4);
+  min-width: 0;
+}
+
+.chat-settings-section {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-2);
+  padding: var(--sp-3);
+  border-radius: var(--radius);
+  border: 1px solid var(--line);
+  background: var(--bg);
+  min-width: 0;
+}
+
+.chat-settings-section-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--sp-2);
+  flex-wrap: wrap;
+}
+
+.chat-settings-section-title {
+  font-size: var(--fs-15);
+  font-weight: 700;
+  color: var(--text);
+}
+
+/* 실시간 스킨·서체 미리보기 상자 */
+.chat-skin-preview {
+  border-radius: var(--radius);
+  border: 1px solid var(--line-strong);
+  background: var(--chat-canvas-bg);
+  color: var(--chat-canvas-ink);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+.chat-skin-preview-bar {
+  padding: 6px var(--sp-3);
+  background: var(--chat-topbar-bg);
+  border-bottom: 1px solid var(--chat-topbar-line);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--sp-2);
+  font-size: var(--fs-13);
+  font-weight: 600;
+  color: var(--chat-canvas-ink);
+}
+
+.chat-skin-preview-meta {
+  font-size: var(--fs-13);
+  font-weight: 500;
+  color: var(--chat-canvas-muted);
+}
+
+.preview-messages {
+  padding: var(--sp-3);
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-2);
+}
+
+/* 5종 스킨 선택 카드 그리드 */
+.chat-skin-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--sp-2);
+}
+
+@media (max-width: 460px) {
+  .chat-skin-grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+.chat-skin-card {
+  min-height: 64px;
+  padding: var(--sp-2) var(--sp-3);
+  border-radius: var(--radius);
+  border: 1px solid var(--line-strong);
+  background: var(--surface);
+  color: var(--text);
+  display: flex;
+  align-items: center;
+  gap: var(--sp-3);
+  text-align: left;
+  cursor: pointer;
+  min-width: 0;
+}
+
+.chat-skin-card:hover {
+  border-color: var(--accent);
+}
+
+.chat-skin-card[aria-pressed="true"] {
+  background: var(--accent-soft);
+  border: 2px solid var(--accent);
+}
+
+.skin-swatch {
+  width: 44px;
+  height: 36px;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--line-strong);
+  padding: 5px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  flex-shrink: 0;
+}
+
+.skin-swatch-other,
+.skin-swatch-mine {
+  height: 9px;
+  border-radius: 5px;
+  display: block;
+}
+
+.skin-swatch-other {
+  width: 68%;
+  align-self: flex-start;
+}
+
+.skin-swatch-mine {
+  width: 68%;
+  align-self: flex-end;
+}
+
+/* 스킨별 카드 내 미니 스와치 색상 (인라인 style 없이 순수 CSS로 표현) */
+.chat-skin-card[data-skin-option="arsen"] .skin-swatch { background: #F3EFE6; }
+.chat-skin-card[data-skin-option="arsen"] .skin-swatch-other { background: #FBF9F4; border: 1px solid #CBC3B2; }
+.chat-skin-card[data-skin-option="arsen"] .skin-swatch-mine { background: #2F5D62; }
+
+.chat-skin-card[data-skin-option="sunlit"] .skin-swatch { background: #F1E6D8; }
+.chat-skin-card[data-skin-option="sunlit"] .skin-swatch-other { background: #FFF9F1; }
+.chat-skin-card[data-skin-option="sunlit"] .skin-swatch-mine { background: #E6AD79; }
+
+.chat-skin-card[data-skin-option="sky"] .skin-swatch { background: #F7F8FA; }
+.chat-skin-card[data-skin-option="sky"] .skin-swatch-other { background: #DCDCE2; border-radius: 999px; }
+.chat-skin-card[data-skin-option="sky"] .skin-swatch-mine { background: #3B6086; border-radius: 999px; }
+
+.chat-skin-card[data-skin-option="workspace"] .skin-swatch { background: #F8FAFC; }
+.chat-skin-card[data-skin-option="workspace"] .skin-swatch-other { width: 92%; border-radius: 2px; background: #E2E8F0; border-left: 3px solid #64748B; }
+.chat-skin-card[data-skin-option="workspace"] .skin-swatch-mine { width: 92%; align-self: flex-start; border-radius: 2px; background: #DBEAFE; border-left: 3px solid #2563EB; }
+
+.chat-skin-card[data-skin-option="forest"] .skin-swatch { background: #E7F0EB; }
+.chat-skin-card[data-skin-option="forest"] .skin-swatch-other { background: #FAFDFB; border: 1px solid #B6CEC0; }
+.chat-skin-card[data-skin-option="forest"] .skin-swatch-mine { background: #2D6A4F; }
+
+:root[data-theme="dark"] .chat-skin-card[data-skin-option="arsen"] .skin-swatch { background: #15171A; }
+:root[data-theme="dark"] .chat-skin-card[data-skin-option="sunlit"] .skin-swatch { background: #282421; }
+:root[data-theme="dark"] .chat-skin-card[data-skin-option="sky"] .skin-swatch { background: #121318; }
+:root[data-theme="dark"] .chat-skin-card[data-skin-option="workspace"] .skin-swatch { background: #171A21; }
+:root[data-theme="dark"] .chat-skin-card[data-skin-option="forest"] .skin-swatch { background: #131C18; }
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) .chat-skin-card[data-skin-option="arsen"] .skin-swatch { background: #15171A; }
+  :root:not([data-theme="light"]) .chat-skin-card[data-skin-option="sunlit"] .skin-swatch { background: #282421; }
+  :root:not([data-theme="light"]) .chat-skin-card[data-skin-option="sky"] .skin-swatch { background: #121318; }
+  :root:not([data-theme="light"]) .chat-skin-card[data-skin-option="workspace"] .skin-swatch { background: #171A21; }
+  :root:not([data-theme="light"]) .chat-skin-card[data-skin-option="forest"] .skin-swatch { background: #131C18; }
+}
+
+.chat-skin-card-text {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+  flex: 1;
+}
+
+.chat-skin-card-title {
+  font-size: var(--fs-15);
+  font-weight: 700;
+  color: var(--text);
+}
+
+.chat-skin-card-desc {
+  font-size: var(--fs-13);
+  color: var(--muted);
+  line-height: 1.3;
+}
+
+/* 옵션 버튼 그리드 (밝기 · 글자크기 · 줄간격 · 전송키 · 내보내기) */
+.prefs-seg-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(74px, 1fr));
+  gap: var(--sp-1);
+}
+
+.prefs-seg-grid-2 {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--sp-2);
+}
+
+@media (max-width: 420px) {
+  .prefs-seg-grid-2 {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+.prefs-option-btn {
+  min-height: var(--touch-min);
+  padding: var(--sp-2) var(--sp-2);
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--line-strong);
+  background: var(--surface);
+  color: var(--text);
+  font-size: var(--fs-13);
+  font-weight: 600;
+  cursor: pointer;
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 2px;
+  text-align: center;
+  min-width: 0;
+}
+
+.prefs-option-btn:hover:not(:disabled) {
+  border-color: var(--accent);
+}
+
+.prefs-option-btn[aria-pressed="true"] {
+  background: var(--accent-soft);
+  border: 2px solid var(--accent);
+  color: var(--text);
+}
+
+.prefs-option-sub {
+  font-size: var(--fs-13);
+  font-weight: 400;
+  color: var(--muted);
+}
+
+.chat-rename-row {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: var(--sp-2);
+  align-items: center;
+}
+
+@media (max-width: 400px) {
+  .chat-rename-row {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+.export-btn-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: var(--sp-2);
+}
+
+@media (max-width: 420px) {
+  .export-btn-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+.chat-settings-footer {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  gap: var(--sp-2);
+  padding-top: var(--sp-1);
+}
+
+@media (max-width: 768px) {
+  .sheet-panel:has(.chat-settings-root) {
+    max-width: 100%;
+  }
+
+  .chat-settings-section {
+    padding: var(--sp-3);
+  }
+}
